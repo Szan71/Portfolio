@@ -38,7 +38,7 @@ export default function AboutPage() {
         <section className="mb-6">
           <h2 className="text-[14px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5">Summary</h2>
           <p className="text-[13px] text-justify leading-snug">
-            <strong>Data Analytics professional with a 4.06 GPA</strong> and a B.Sc. in Computer Science, specializing in turning "messy data" into executive-ready insights. Expert in <strong>SQL, Python, and Power BI</strong>, with a proven record of architecting data governance for <strong>2.5M+ users</strong> with <strong>99.8% integrity</strong>. Driven by a "UX-first" approach to analytics and a Six Sigma commitment to ethical, measurable impact.
+            <strong>Data Analytics professional with a 4.06 GPA</strong> and a B.Sc. in Computer Science, specializing in turning messy data into executive-ready insights. Expert in <strong>SQL, Python, and Power BI</strong>, with a proven record of architecting data governance for <strong>2.5M+ users</strong> with <strong>99.8% integrity</strong>. Driven by a UX-first approach to analytics and a Six Sigma commitment to ethical, measurable impact.
           </p>
         </section>
 
@@ -49,7 +49,7 @@ export default function AboutPage() {
           <div className="mb-4">
             <div className="flex justify-between font-bold text-[13.5px]">
               <span>Lead Systems Analyst & UX Strategist | Alliance Maintenance Ltd | Vancouver</span>
-              <span>Jan 2025 – Present</span>
+              <span>Jan 2025 - Present</span>
             </div>
             <ul className="list-disc ml-5 mt-1 text-[13px] space-y-0.5">
               <li><strong>Operational Analytics:</strong> Developed an automated outreach pipeline tracking system, increasing conversion tracking accuracy by 35%.</li>

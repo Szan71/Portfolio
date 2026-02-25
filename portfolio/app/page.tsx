@@ -25,7 +25,7 @@ export default function Home() {
   <div className="border-l-4 border-emerald-500 pl-6">
     <h2 className="text-2xl font-bold text-white">Story #2: National Job Market Intelligence</h2>
     <p className="text-zinc-500 mt-2 max-w-2xl">
-      An interactive look at Canada's labor market dynamics. This dashboard tracks job vacancies, 
+      An interactive look at Canadas labor market dynamics. This dashboard tracks job vacancies, 
       payroll trends, and hourly wages across provinces using unadjusted quarterly data 
       from StatCan Table 14-10-0325-01.
     </p>

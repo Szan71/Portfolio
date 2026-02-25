@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import Papa from "papaparse";
+// Add this line if you want to use ParseResult without the "Papa." prefix
+import type { ParseResult } from "papaparse";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, AreaChart, Area } from "recharts";
 import { Filter, BarChart3, TrendingUp, Info } from 'lucide-react';
 
@@ -14,7 +17,7 @@ interface JobVacancyRow {
 export default function JobMarketStory() {
   const [rawData, setRawData] = useState<JobVacancyRow[]>([]);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Dashboard State (Power BI style filters)
   const [selectedGeo, setSelectedGeo] = useState("Canada");
   const [selectedStat, setSelectedStat] = useState("Job vacancies");
@@ -26,9 +29,10 @@ export default function JobMarketStory() {
       download: true,
       header: true,
       skipEmptyLines: true,
-      complete: (results) => {
-        if (results.data.length > 0) {
-          setRawData(results.data as JobVacancyRow[]);
+      // Using 'any' to remove strict typechecks as requested
+      complete: (results: any) => {
+        if (results.data && results.data.length > 0) {
+          setRawData(results.data);
           setError(null);
         } else {
           setError("Audit Failed: CSV is empty or path is incorrect.");
@@ -47,8 +51,8 @@ export default function JobMarketStory() {
         value: parseFloat(row.VALUE.replace(/,/g, '')) || 0,
       }))
       .sort((a, b) => {
-        return sortOrder === "asc" 
-          ? a.date.localeCompare(b.date) 
+        return sortOrder === "asc"
+          ? a.date.localeCompare(b.date)
           : b.date.localeCompare(a.date);
       });
   }, [rawData, selectedGeo, selectedStat, sortOrder]);
@@ -75,7 +79,7 @@ export default function JobMarketStory() {
           </h3>
           <p className="text-zinc-500 text-xs font-mono mt-1 italic">Quarterly Statistics (Unadjusted) — Source: StatCan</p>
         </div>
-        
+
         {/* Metric Cards */}
         <div className="flex gap-4">
           <div className="bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 rounded-xl">
@@ -93,8 +97,8 @@ export default function JobMarketStory() {
       <div className="px-6 py-4 bg-black/20 flex flex-wrap gap-6 items-center border-b border-white/5">
         <div className="flex items-center gap-3">
           <Filter size={14} className="text-zinc-500" />
-          <select 
-            value={selectedGeo} 
+          <select
+            value={selectedGeo}
             onChange={(e) => setSelectedGeo(e.target.value)}
             className="bg-zinc-800 border border-white/10 text-zinc-300 text-xs rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
           >
@@ -102,15 +106,15 @@ export default function JobMarketStory() {
           </select>
         </div>
 
-        <select 
-          value={selectedStat} 
+        <select
+          value={selectedStat}
           onChange={(e) => setSelectedStat(e.target.value)}
           className="bg-zinc-800 border border-white/10 text-zinc-300 text-xs rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
         >
           {stats.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
 
-        <button 
+        <button
           onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
           className="text-xs font-medium text-zinc-400 hover:text-white transition-colors flex items-center gap-2"
         >
@@ -124,39 +128,39 @@ export default function JobMarketStory() {
           <AreaChart data={processedData}>
             <defs>
               <linearGradient id="colorVal" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
-            <XAxis 
-              dataKey="date" 
-              stroke="#52525b" 
-              fontSize={11} 
-              tickLine={false} 
-              axisLine={false} 
+            <XAxis
+              dataKey="date"
+              stroke="#52525b"
+              fontSize={11}
+              tickLine={false}
+              axisLine={false}
               dy={15}
             />
-            <YAxis 
-              stroke="#52525b" 
-              fontSize={11} 
-              tickLine={false} 
+            <YAxis
+              stroke="#52525b"
+              fontSize={11}
+              tickLine={false}
               axisLine={false}
-              tickFormatter={(val) => val >= 1000 ? `${(val/1000).toFixed(0)}k` : val} 
+              tickFormatter={(val) => val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val}
             />
-            <Tooltip 
+            <Tooltip
               contentStyle={{ backgroundColor: '#09090b', borderRadius: '16px', border: '1px solid #ffffff10', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.5)' }}
               itemStyle={{ color: '#10b981', fontWeight: 'bold' }}
               labelStyle={{ color: '#71717a', marginBottom: '4px', fontSize: '10px' }}
               cursor={{ stroke: '#10b981', strokeWidth: 1 }}
             />
-            <Area 
-              type="monotone" 
-              dataKey="value" 
-              stroke="#10b981" 
-              strokeWidth={3} 
-              fillOpacity={1} 
-              fill="url(#colorVal)" 
+            <Area
+              type="monotone"
+              dataKey="value"
+              stroke="#10b981"
+              strokeWidth={3}
+              fillOpacity={1}
+              fill="url(#colorVal)"
               animationDuration={1500}
             />
           </AreaChart>
@@ -165,14 +169,14 @@ export default function JobMarketStory() {
 
       {/* Narrative Footer */}
       <div className="px-8 pb-8 flex flex-col gap-2">
-  <div className="flex items-center gap-2 text-zinc-500 text-[11px]">
-    <Info size={14} className="text-emerald-500/50" />
-    <span>Synthesized using unadjusted inactive data. Data represents GEO and Statistics mapping from StatCan.</span>
-  </div>
-  <div className="text-zinc-600 text-[10px] font-mono pl-5">
-    Source: Statistics Canada. Table 14-10-0325-01 Job vacancies, payroll employees, job vacancy rate, and average offered hourly wage by provinces and territories, quarterly, unadjusted for seasonality.
-  </div>
-</div>
-</div>
+        <div className="flex items-center gap-2 text-zinc-500 text-[11px]">
+          <Info size={14} className="text-emerald-500/50" />
+          <span>Synthesized using unadjusted inactive data. Data represents GEO and Statistics mapping from StatCan.</span>
+        </div>
+        <div className="text-zinc-600 text-[10px] font-mono pl-5">
+          Source: Statistics Canada. Table 14-10-0325-01 Job vacancies, payroll employees, job vacancy rate, and average offered hourly wage by provinces and territories, quarterly, unadjusted for seasonality.
+        </div>
+      </div>
+    </div>
   );
 }
