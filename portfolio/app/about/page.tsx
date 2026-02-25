@@ -79,7 +79,7 @@ export default function AboutPage() {
           <div className="mb-3 text-[13px]">
             <p className="font-bold tracking-tight">BildStrata: Strata Building Management Platform | <span className="italic">Python, SQL, CMS</span></p>
             <ul className="list-disc ml-5 mt-0.5 space-y-0.5">
-              <li>Developed an end-to-end "BildStrata" application focused on improving user journeys for building managers and residents.</li>
+              <li>Developed an end-to-end BildStrata application focused on improving user journeys for building managers and residents.</li>
               <li>Integrated automated form handling and asset libraries to drive higher user engagement.</li>
             </ul>
           </div>
@@ -87,7 +87,7 @@ export default function AboutPage() {
             <p className="font-bold tracking-tight">Integrated Customer Sales Insight Platform | <span className="italic">Power BI, SQL, Python</span></p>
             <ul className="list-disc ml-5 mt-0.5 space-y-0.5">
               <li>Architected a dashboard suite transforming fragmented sales data into pattern analysis and forecasting.</li>
-              <li>Implemented data-sharing strategies and data dictionaries to ensure the dataset was "refresh-ready."</li>
+              <li>Implemented data-sharing strategies and data dictionaries to ensure the dataset was refresh-ready.</li>
             </ul>
           </div>
         </section>
